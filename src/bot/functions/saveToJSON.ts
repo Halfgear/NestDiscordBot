@@ -10,11 +10,11 @@ export function saveToJSON(
   var currentData = fs.readFileSync('./NoTrollzUsers.json');
   var data = JSON.parse(currentData);
 
-  let newClient = [{
+  let newClient = {
     아이디: `${id}`,
     디스코드태그: `${discordTag}`,
     소환사명: `${summonerName}`,
-  }];
+  };
 
   data.push(newClient);
 
