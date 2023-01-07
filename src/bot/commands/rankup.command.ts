@@ -5,11 +5,11 @@ import {
   TransformedCommandExecutionContext,
 } from '@discord-nestjs/core';
 import { TransformPipe } from '@discord-nestjs/common';
-import { nameDTO } from './name.dto';
+import { nameDTO } from './DTO/name.dto';
 import { Injectable } from '@nestjs/common';
 import { EmbedBuilder } from 'discord.js';
-import { Command } from './commands/command.decorator';
-import { saveToJSON } from './functions/saveToJSON';
+import { Command } from './commandDecorator/command.decorator';
+import { saveToJSON } from '../functions/saveToJSON';
 
 @Injectable()
 @Command({

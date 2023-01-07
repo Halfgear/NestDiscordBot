@@ -1,4 +1,4 @@
-import { LocalizationMap, PermissionResolvable } from 'discord.js';
+import { LocalizationMap, PermissionResolvable } from "discord.js";
 
 export interface BaseCommandOptions {
   /**

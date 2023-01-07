@@ -1,5 +1,5 @@
-import { ApplicationCommandType } from 'discord.js';
-import { BaseCommandOptions } from './base.commands.option';
+import { ApplicationCommandType } from "discord.js";
+import { BaseCommandOptions } from "./base.commands.option";
 
 /**
  * Describe base command options
@@ -13,7 +13,7 @@ export interface CommandOptions extends BaseCommandOptions {
   /**
    * Localize description
    */
-  descriptionLocalizations?: 'ko';
+  descriptionLocalizations?: "ko";
 
   /**
    * Slash command type

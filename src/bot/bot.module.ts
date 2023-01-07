@@ -1,7 +1,7 @@
 import { DiscordModule } from '@discord-nestjs/core';
 import { Module } from '@nestjs/common';
 import { BotGateway } from './bot.gateway';
-import { BaseInfoCommand } from './rankup.command';
+import { BaseInfoCommand } from './commands/rankup.command';
 
 @Module({
   imports: [DiscordModule.forFeature()],
