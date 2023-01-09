@@ -7,26 +7,26 @@ export function saveToJSON(
   summonerName: string,
 ) {
 
+  //현재 데이터 읽기
   var currentData = fs.readFileSync('./NoTrollzUsers.json');
   var data = JSON.parse(currentData);
 
+  //추가할 신규데이터
   let newClient = {
     아이디: `${id}`,
     디스코드태그: `${discordTag}`,
     소환사명: `${summonerName}`,
   };
 
+  //데이터 통합
   data.push(newClient);
 
+  //Json화
   var usersjson = JSON.stringify(data);
 
+  //다시 파일로 추가
   fs.writeFileSync('./NoTrollzUsers.json', usersjson, (err: any) => {
     if (err) console.log(err);
-    else {
-      console.log('NoTrollzUsers.json에 성공적으로 저장되었습니다\n');
-    }
   });
-
-
-
+  console.log('NoTrollzUsers.json에 성공적으로 저장되었습니다\n');
 }
