@@ -32,20 +32,24 @@ export class TeamAddRequest implements DiscordTransformedCommand<captainDTO> {
     const userName = interaction.user.username;
 
     //DM보낼 팀장 특정
-    const leaderName = captain.substring(1);
-    const leader = interaction.guild.members.cache.get(leaderName);
-    console.log(leader);
+    const leaderID = captain.substring(2, captain.length - 1);
+    console.log(leaderID)
+    const leaderName = (await interaction.guild.members.fetch(leaderID)).nickname;
+    console.log(leaderName)
+    const leader = interaction.guild.members.cache.get(leaderID);
 
-    if (leader.roles.cache.find((role) => role.name !== '팀장')) {
+    //팀이름 획득
+    const teamName = leaderName.split("/", 1)[0];
+    console.log(teamName);
+
+    if (leader.roles.cache.find((role) => role.name === '팀장')) {
       await interaction.reply(
         '선택하신 유저가 팀장이 아닙니다. 팀장을 골라주세요.',
       );
       return;
     }
 
-    //팀이름 획득
-    const teamName = leaderName.split("/", 1);
-    console.log(teamName);
+
 
     //팀장이름 양식확인 (팀이름이 앞에오고 /로 나눠져 있어야합니다)
     if (leaderName.split("/", 2).length == 0) {
@@ -68,10 +72,11 @@ export class TeamAddRequest implements DiscordTransformedCommand<captainDTO> {
     const message = new EmbedBuilder().setDescription(
       `팀장에게 신청을 보냈습니다 팀장이 수락할시 팀에 추가 예정입니다.`,
     );
-
     await interaction.reply({ embeds: [message] });
 
     //팀장에게 수락버튼이 포함된 DM전송
+    leader.send("message")
+
 
 
     ////////////////////////////////////팀장이 수락한후 버튼이 할 행동
