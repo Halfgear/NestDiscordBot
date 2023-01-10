@@ -38,24 +38,25 @@ export class TeamAddRequest implements DiscordTransformedCommand<captainDTO> {
     console.log(leaderName)
     const leader = interaction.guild.members.cache.get(leaderID);
 
-    //팀이름 획득
-    const teamName = leaderName.split("/", 1)[0];
-    console.log(teamName);
 
-    if (leader.roles.cache.find((role) => role.name === '팀장')) {
+
+    if (!leader.roles.cache.find((role) => role.name === '팀장')) {
       await interaction.reply(
         '선택하신 유저가 팀장이 아닙니다. 팀장을 골라주세요.',
       );
       return;
     }
 
-
-
+    //팀이름 획득
+    try {
     //팀장이름 양식확인 (팀이름이 앞에오고 /로 나눠져 있어야합니다)
-    if (leaderName.split("/", 2).length == 0) {
+      const teamName = leaderName.split("/", 1)[0];
+      console.log(teamName);
+    } catch (error) {
       await interaction.reply("팀장이름 양식이 맞지 않습니다");
       return;
     }
+
 
     //커맨드를 사용한 유저 특정
     const user = interaction.guild.members.cache.get(id);
@@ -63,7 +64,7 @@ export class TeamAddRequest implements DiscordTransformedCommand<captainDTO> {
     //이미 팀원인지 유저인지 확인.
     if (user.roles.cache.find((role) => role.name === '팀원')) {
       await interaction.reply(
-        '이미 팀원으로 등록되어있습니다 팀원 역할을 지워주세요.',
+        '이미 팀원으로 등록되어있습니다 팀을 탈퇴후 신청해주세요.',
       );
       return;
     }
@@ -82,6 +83,7 @@ export class TeamAddRequest implements DiscordTransformedCommand<captainDTO> {
     ////////////////////////////////////팀장이 수락한후 버튼이 할 행동
 
     //유저 이름 변경
+    const teamName = leaderName.split("/", 1)[0];
     user.setNickname(teamName + "/" + userName);
 
 
