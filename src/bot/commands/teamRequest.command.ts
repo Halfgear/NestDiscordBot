@@ -7,9 +7,8 @@ import {
 import { TransformPipe } from '@discord-nestjs/common';
 import { captainDTO } from './DTO/captain.dto';
 import { Injectable } from '@nestjs/common';
-import { EmbedBuilder } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder,  } from 'discord.js';
 import { Command } from './commandDecorator/command.decorator';
-
 @Injectable()
 @Command({
   name: '팀등록신청',
@@ -28,7 +27,7 @@ export class TeamAddRequest implements DiscordTransformedCommand<captainDTO> {
     { interaction }: TransformedCommandExecutionContext,
   ): Promise<void> {
     //유저가 빈 값을 입력했을때는 디스코드 자체적으로 입력을 요구함
-    const id = interaction.user.id;
+    const userID = interaction.user.id;
     const userName = interaction.user.username;
 
     //DM보낼 팀장 특정
@@ -59,7 +58,7 @@ export class TeamAddRequest implements DiscordTransformedCommand<captainDTO> {
 
 
     //커맨드를 사용한 유저 특정
-    const user = interaction.guild.members.cache.get(id);
+    const user = interaction.guild.members.cache.get(userID);
 
     //이미 팀원인지 유저인지 확인.
     if (user.roles.cache.find((role) => role.name === '팀원')) {
@@ -76,7 +75,20 @@ export class TeamAddRequest implements DiscordTransformedCommand<captainDTO> {
     await interaction.reply({ embeds: [message] });
 
     //팀장에게 수락버튼이 포함된 DM전송
-    leader.send("message")
+    const buttons = new ActionRowBuilder<ButtonBuilder>().addComponents(
+      new ButtonBuilder()
+      .setCustomId('accept')
+      .setLabel('수락')
+      .setStyle(ButtonStyle.Primary),
+      
+      new ButtonBuilder()
+      .setCustomId('decline')
+      .setLabel('거절')
+      .setStyle(ButtonStyle.Secondary),
+    );
+
+
+    leader.send({components: [buttons]})
 
 
 
