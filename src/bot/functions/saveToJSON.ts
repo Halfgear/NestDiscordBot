@@ -22,7 +22,7 @@ export function saveToJSON(
   data.push(newClient);
 
   //Json화
-  var usersjson = JSON.stringify(data);
+  var usersjson = JSON.stringify(data, null, 4);
 
   //다시 파일로 추가
   fs.writeFileSync('./NoTrollzUsers.json', usersjson, (err: any) => {

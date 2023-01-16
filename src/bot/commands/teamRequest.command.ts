@@ -64,7 +64,7 @@ export class TeamAddRequest implements DiscordTransformedCommand<captainDTO> {
         '이미 팀원으로 등록되어있습니다 팀을 탈퇴후 신청해주세요.',
       );
       return;
-    }
+    };
 
     //채널 로그로 답장
     const message = new EmbedBuilder().setDescription(
@@ -84,12 +84,10 @@ export class TeamAddRequest implements DiscordTransformedCommand<captainDTO> {
         .setLabel('거절')
         .setStyle(ButtonStyle.Secondary),
     );
-    
 
 
-    leader.send({ content: `${userName}님이 팀원등록 신청 하였습니다`, components: [buttons] })
 
-
+    leader.send({ content: `${userName}님이 팀원등록 신청 하였습니다`, components: [buttons] });
 
     ////////////////////////////////////팀장이 수락한후 버튼이 할 행동
 
@@ -108,5 +106,6 @@ export class TeamAddRequest implements DiscordTransformedCommand<captainDTO> {
 
     //JSON파일로 팀원저장
 
+    //https://github.com/fjodor-rybakov/discord-nestjs/blob/master/packages/sample/interaction-collector/src/bot/command/play.command.ts
   }
 }

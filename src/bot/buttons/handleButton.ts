@@ -5,10 +5,11 @@ import { ButtonInteraction } from 'discord.js';
 export class PostInteractionCollector {
   @On('collect')
   async onCollect(interaction: ButtonInteraction): Promise<void> {
-    await interaction.update({
-      content: 'A button was clicked!',
-      components: [],
-    });
+    console.log("interaction happend!!!");
+    // await interaction.update({
+    //   content: 'A button was clicked!',
+    //   components: [],
+    // });
   }
 
   @Once('end')
