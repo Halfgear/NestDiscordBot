@@ -3,12 +3,14 @@ import {
   Payload,
   DiscordTransformedCommand,
   TransformedCommandExecutionContext,
+  UseCollectors,
 } from '@discord-nestjs/core';
 import { TransformPipe } from '@discord-nestjs/common';
 import { captainDTO } from './DTO/captain.dto';
 import { Injectable } from '@nestjs/common';
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder,  } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, InteractionReplyOptions, MessageActionRowComponentBuilder, } from 'discord.js';
 import { Command } from './commandDecorator/command.decorator';
+import { PostInteractionCollector } from '../buttons/handleButton';
 @Injectable()
 @Command({
   name: '팀등록신청',
@@ -16,16 +18,12 @@ import { Command } from './commandDecorator/command.decorator';
   defaultMemberPermissions: 'ViewChannel',
 })
 @UsePipes(TransformPipe)
-/**
- * 팀장에게 팀원추가 신청보내기
- * 팀장이 받아줄시 팀이름추가 및 팀멤버로 추가
- * 로그로 저장
- */
+@UseCollectors(PostInteractionCollector)
 export class TeamAddRequest implements DiscordTransformedCommand<captainDTO> {
   async handler(
     @Payload() { captain }: captainDTO,
     { interaction }: TransformedCommandExecutionContext,
-  ): Promise<void> {
+  ): Promise<InteractionReplyOptions> {
     //유저가 빈 값을 입력했을때는 디스코드 자체적으로 입력을 요구함
     const userID = interaction.user.id;
     const userName = interaction.user.username;
@@ -48,7 +46,7 @@ export class TeamAddRequest implements DiscordTransformedCommand<captainDTO> {
 
     //팀이름 획득
     try {
-    //팀장이름 양식확인 (팀이름이 앞에오고 /로 나눠져 있어야합니다)
+      //팀장이름 양식확인 (팀이름이 앞에오고 /로 나눠져 있어야합니다)
       const teamName = leaderName.split("/", 1)[0];
       console.log(teamName);
     } catch (error) {
@@ -75,20 +73,21 @@ export class TeamAddRequest implements DiscordTransformedCommand<captainDTO> {
     await interaction.reply({ embeds: [message] });
 
     //팀장에게 수락버튼이 포함된 DM전송
-    const buttons = new ActionRowBuilder<ButtonBuilder>().addComponents(
+    const buttons = new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
       new ButtonBuilder()
-      .setCustomId('accept')
-      .setLabel('수락')
-      .setStyle(ButtonStyle.Primary),
-      
+        .setCustomId('accept')
+        .setLabel('수락')
+        .setStyle(ButtonStyle.Primary),
+
       new ButtonBuilder()
-      .setCustomId('decline')
-      .setLabel('거절')
-      .setStyle(ButtonStyle.Secondary),
+        .setCustomId('decline')
+        .setLabel('거절')
+        .setStyle(ButtonStyle.Secondary),
     );
+    
 
 
-    leader.send({components: [buttons]})
+    leader.send({ content: `${userName}님이 팀원등록 신청 하였습니다`, components: [buttons] })
 
 
 
