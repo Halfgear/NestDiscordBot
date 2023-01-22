@@ -85,11 +85,9 @@ export class TeamAddRequest implements DiscordTransformedCommand<captainDTO> {
         .setStyle(ButtonStyle.Secondary),
     );
 
-
-
     leader.send({ content: `${userName}님이 팀원등록 신청 하였습니다`, components: [buttons] });
 
-    ////////////////////////////////////팀장이 수락한후 버튼이 할 행동
+    //팀장이 수락한후 버튼이 할 행동
 
     //유저 이름 변경
     const teamName = leaderName.split("/", 1)[0];

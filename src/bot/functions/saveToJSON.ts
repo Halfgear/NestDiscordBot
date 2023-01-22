@@ -9,8 +9,14 @@ export function saveToJSON(
 
   //현재 데이터 읽기
   var currentData = fs.readFileSync('./NoTrollzUsers.json');
-  var data = JSON.parse(currentData);
 
+  try {
+    var data = JSON.parse(currentData);
+  
+  } catch (error) {
+        
+  }
+  
   //추가할 신규데이터
   let newClient = {
     아이디: `${id}`,
@@ -30,3 +36,4 @@ export function saveToJSON(
   });
   console.log('NoTrollzUsers.json에 성공적으로 저장되었습니다\n');
 }
+//TODO: move the DATA file into src.
