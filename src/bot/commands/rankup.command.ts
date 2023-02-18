@@ -4,20 +4,20 @@ import {
   DiscordTransformedCommand,
   TransformedCommandExecutionContext,
 } from '@discord-nestjs/core';
-import { TransformPipe } from '@discord-nestjs/common';
 import { nameDTO } from './DTO/name.dto';
 import { Injectable } from '@nestjs/common';
 import { EmbedBuilder } from 'discord.js';
 import { Command } from './commandDecorator/command.decorator';
 import { saveToJSON } from '../functions/saveToJSON';
+import { TransformPipe } from '@discord-nestjs/common';
 
 @Injectable()
+@UsePipes(TransformPipe)
 @Command({
   name: '등급업',
   description: '소환사명 확인',
   defaultMemberPermissions: 'UseApplicationCommands',
 })
-@UsePipes(TransformPipe)
 /**
  * 처음 유저가 들어올시 쓰는 "Member"권한 추가 및 소환사명으로 디스코드 닉네임 변경
  * JSON파일로 유저 디스코드 ID, 닉네임태그, 소환사명 수집.
