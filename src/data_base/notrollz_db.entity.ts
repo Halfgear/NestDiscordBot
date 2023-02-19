@@ -6,12 +6,15 @@ export class notrollz_entity {
     discord_id: number
 
     @Column({ type: "varchar" })
-    server_name: string
+    discord_tag: string
 
     @Column({ type: "varchar" })
     summoner_name: string
 
-    @Column({ type: "varchar" })
+    @Column({
+        type: "varchar",
+        default: ""
+    })
     team_name: string
 
     @Column({

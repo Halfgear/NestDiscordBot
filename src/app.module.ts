@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [ConfigModule.forRoot(),
-    //TypeOrmModule.forRoot(),
+    TypeOrmModule,
     DelegateDiscordModule, 
     BotModule],
 })

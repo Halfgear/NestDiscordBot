@@ -8,7 +8,7 @@ import { nameDTO } from './DTO/name.dto';
 import { Injectable } from '@nestjs/common';
 import { EmbedBuilder } from 'discord.js';
 import { Command } from './commandDecorator/command.decorator';
-import { saveToJSON } from '../functions/saveToJSON';
+import { saveToDB } from '../functions/saveToJSON';
 import { TransformPipe } from '@discord-nestjs/common';
 
 @Injectable()
@@ -49,7 +49,7 @@ export class BaseInfoCommand implements DiscordTransformedCommand<nameDTO> {
     user.roles.add(memberRole);
 
     //JSON파일로 태그와 유저이름을 저장합니다.
-    saveToJSON(id, discordTag, name);
+    saveToDB(id, discordTag, name);
 
     //채널 로그로 답장
     const message = new EmbedBuilder().setDescription(
