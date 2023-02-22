@@ -2,8 +2,8 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 
 @Entity()
 export class notrollz_entity {
-    @PrimaryGeneratedColumn({ type: "int" })
-    discord_id: number
+    @PrimaryGeneratedColumn("uuid")
+    discord_id: string
 
     @Column({ type: "varchar" })
     discord_tag: string

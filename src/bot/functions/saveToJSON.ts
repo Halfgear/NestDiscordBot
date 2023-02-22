@@ -9,11 +9,10 @@ export async function saveToDB(
   summonerName: string,
   discordTag: string,  
 ) {
-//parse int
-var id_int = +id;
+
 
 const user = new notrollz_entity()
-user.discord_id = id_int;
+user.discord_id = id;
 user.discord_tag = discordTag
 user.summoner_name = summonerName
 user.team_name = ""
