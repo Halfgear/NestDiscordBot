@@ -4,8 +4,7 @@
 	"name": "Node.js & PostgreSQL",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-	"forwardPorts": [5432]
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 

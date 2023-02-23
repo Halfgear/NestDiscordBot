@@ -13,7 +13,7 @@ RUN npm install
 RUN npm run build
 
 # Just for documentation purposes
-EXPOSE 3000
+EXPOSE 8080
 
 # DB connection string as ENV Var
 CMD ["npm", "run", "start:prod"]

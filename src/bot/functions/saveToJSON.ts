@@ -1,6 +1,3 @@
-//JSON 파일로 유저 태그와 소환사 명을 저장합니다
-
-import {AppDataSource} from '../../data_base/index';
 import {notrollz_entity} from '../../data_base/notrollz_db.entity';
 
 //saves 
@@ -19,7 +16,8 @@ user.team_name = ""
 user.team_catain = false;
 
 
-await AppDataSource.manager.save(user)
+//add user
+await this.UsersService.add(user);
 console.log(user.discord_tag,"님이 등록되셨습니다.")
 
 }
