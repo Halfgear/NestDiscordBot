@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UserInterface } from 'src/data_base/user.interface';
+import { Observable, from } from 'rxjs';
 import { Repository } from 'typeorm';
 import { notrollz_entity } from '../data_base/notrollz_db.entity';
 
@@ -8,19 +10,15 @@ import { notrollz_entity } from '../data_base/notrollz_db.entity';
 export class UsersService {
     constructor(
         @InjectRepository(notrollz_entity)
-        private usersRepository: Repository<notrollz_entity>,
-    ) { }
+        private userRepository: Repository<UserInterface>
+    ) {}
 
-    findAll(): Promise<notrollz_entity[]> {
-        return this.usersRepository.find();
+    add(user: UserInterface): Observable<UserInterface> {
+        return from(this.userRepository.save(user));
     }
 
-    //not sure if JSON.parse completely fixed this problem, but I will leave it like this for now.
-    findOne(id: string): Promise<notrollz_entity> {
-        return JSON.parse(localStorage.getItem('id') || '{}');
+    findAll(): Observable<UserInterface[]> {
+        return from(this.userRepository.find());
     }
 
-    async remove(id: string): Promise<void> {
-        await this.usersRepository.delete(id);
-    }
 }

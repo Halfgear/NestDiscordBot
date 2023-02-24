@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm"
 
 @Entity()
-export class notrollz_entity {
+export class notrollz_entity extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
     discord_id: string
 
