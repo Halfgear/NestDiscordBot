@@ -8,17 +8,18 @@ services:
           depends_on:
             - postgres
           environment:
-            DATABASE_URL: postgres://user:password@postgres:5432/db
+            DATABASE_URL: postgres://user:password@db:5432/db
             NODE_ENV: development
             PORT: 3000
           ports:
             - "8080:3000"
   
-  postgres:
-        image: postgres:latest
-        ports:
-            - "5432:5432"
-        environment: 
-            POSTGRES_USER: user
-            POSTGRES_PASSWORD: password
-            POSTGRES_DB: db
+  db:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: test
+      POSTGRES_PASSWORD: password
+

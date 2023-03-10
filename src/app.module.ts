@@ -11,7 +11,7 @@ import { DataSource } from "typeorm";
     TypeOrmModule.forRoot({
       type: "postgres",
       // url: process.env.DATABASE_URL,
-      url: "postgres://postgres:password@db:5432/postgres",
+      url: "postgres://hwijoon:password@db/no_trollz_data_base",
       autoLoadEntities: true,
       synchronize: true,
       entities: [__dirname + "/data_base/*.entity.ts"],
