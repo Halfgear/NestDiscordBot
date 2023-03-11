@@ -49,7 +49,7 @@ export class BaseInfoCommand implements DiscordTransformedCommand<nameDTO> {
     user.roles.add(memberRole);
 
     //JSON파일로 태그와 유저이름을 저장합니다.
-    saveToDB(id, discordTag, name);
+    saveToDB(id, name, discordTag);
 
     //채널 로그로 답장
     const message = new EmbedBuilder().setDescription(

@@ -1,8 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, Index } from "typeorm"
 
 @Entity()
 export class notrollz_entity extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
+    uuid: string
+
+    @Index("discord_id", { unique: true })
+    @Column({ type: "varchar" })
     discord_id: string
 
     @Column({ type: "varchar" })

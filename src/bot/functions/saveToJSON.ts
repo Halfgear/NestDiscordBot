@@ -1,5 +1,6 @@
 import {notrollz_entity} from '../../data_base/notrollz_db.entity';
-import {UsersService} from '../bot.service';
+import { v4 as uuidv4 } from 'uuid';
+import { QueryFailedError } from 'typeorm';
 
 //saves 
 export async function saveToDB(
@@ -10,6 +11,7 @@ export async function saveToDB(
 
 
 const user = new notrollz_entity()
+user.uuid = uuidv4();
 user.discord_id = id;
 user.discord_tag = discordTag;
 user.summoner_name = summonerName;
@@ -18,7 +20,15 @@ user.team_catain = false;
 
 
 //add user
-await notrollz_entity.save(user);
+try{
+  await notrollz_entity.save(user);
+} catch(QueryFailedError) {
+  await notrollz_entity.save(user);
+  console.log("중복된 유저입니다.");
+
+}
+
+
 console.log(user.discord_tag,"님이 등록되셨습니다.")
 
 }
