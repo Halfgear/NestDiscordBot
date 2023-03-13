@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { notrollz_entity } from '../data_base/notrollz_db.entity';
 
 
+//this is not used yet. Will implement it if this becomes necessary.
 @Injectable()
 export class UsersService {
     constructor(
